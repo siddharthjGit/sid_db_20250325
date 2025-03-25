@@ -36,7 +36,8 @@ jobs:
 
       - name: git diff
         run: |
-          git diff-tree --no-commit-id --name-only -r HEAD~1
+          git checkout task-02
+          git diff-tree --no-commit-id --name-only -r HEAD
 
       # - name: Check if run.py changed
       #   run: |
