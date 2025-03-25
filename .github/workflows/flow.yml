@@ -11,14 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check if run.py changed
-        run: |
-          if git diff --name-only HEAD^ HEAD | grep -q 'runs/run.py'; then
-            echo "run_changed=true" >> $GITHUB_ENV
-          else
-            echo "run_changed=false" >> $GITHUB_ENV
-          fi
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -32,6 +24,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Check if run.py changed
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -q 'runs/run.py'; then
+            echo "run_changed=true" >> $GITHUB_ENV
+          else
+            echo "run_changed=false" >> $GITHUB_ENV
+          fi
+          
       - name: Run run.py if run.py is changed        
         if: env.run_changed == 'true'
         run: |
