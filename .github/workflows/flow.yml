@@ -35,8 +35,9 @@ jobs:
           git log
 
       - name: git diff
+        id: check_deployment_yaml
         run: |
-          git checkout task-02
+          git checkout HEAD~1
           git diff-tree --no-commit-id --name-only -r HEAD
 
       # - name: Check if run.py changed
