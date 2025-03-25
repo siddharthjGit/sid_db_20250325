@@ -2,7 +2,6 @@ import sys
 
 def main(args):
     print("Hello, There!")
-    print('another one.')
     print(f"We are joined by: {args}")
 
 
