@@ -37,7 +37,6 @@ jobs:
       - name: git diff
         id: check_deployment_yaml
         run: |
-          git checkout HEAD~1
           git diff-tree --no-commit-id --name-only -r HEAD^2
 
       # - name: Check if run.py changed
