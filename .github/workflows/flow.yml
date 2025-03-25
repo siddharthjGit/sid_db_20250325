@@ -34,10 +34,10 @@ jobs:
         run: |
           git log
 
-      # - name: git diff
-      #   id: check_deployment_yaml
-      #   run: |
-      #     git diff-tree --no-commit-id --name-only -r HEAD^2
+      - name: git diff
+        id: check_deployment_yaml
+        run: |
+          git diff-tree --no-commit-id --name-only -r HEAD^2
 
       - name: Check if run.py changed
         run: |
@@ -45,18 +45,20 @@ jobs:
           git diff-tree --no-commit-id --name-only -r HEAD^2 | grep -q 'run.py'
           if [ $? -eq 0 ]; then
             echo "run.py has changed."
+            echo "run_changed=true" >> $GITHUB_ENV
           else
             echo "run.py has not changed."
+            echo "run_changed=false" >> $GITHUB_ENV
           fi
           set -e
 
 
-      # - name: Run run.py if run.py is changed        
-      #   if: env.run_changed == 'true'
-      #   run: |
-      #     python run.py Siddharth
+      - name: Run run.py if run.py is changed        
+        if: ${{ env.run_changed == 'true' }}
+        run: |
+          python run.py Siddharth
 
-      # - name: Run run2.py if run.py is not changed
-      #   if: env.run_changed == 'false'
-      #   run: |
-      #     python run2.py Applepie
+      - name: Run run2.py if run.py is not changed
+        if: ${{ env.run_changed == 'false' }}
+        run: |
+          python run2.py Applepie
