@@ -1,7 +1,7 @@
 import sys
 
 def main(args):
-    print("Hello, world!")
+    print("Hello, There!")
     print(f"We are joined by: {args}")
 
 
