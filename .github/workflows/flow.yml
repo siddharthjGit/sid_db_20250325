@@ -15,7 +15,6 @@ jobs:
 
     steps:
       - name: Check if run.py changed
-        id: check_deployment_yaml
         run: |
           if git diff --name-only HEAD^ HEAD | grep -q 'run.py'; then
             echo "changed=true" >> $GITHUB_ENV
