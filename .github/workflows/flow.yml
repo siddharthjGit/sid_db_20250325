@@ -24,22 +24,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # - name: Check if run.py changed
-      #   run: |
-      #     echo "Checking for changes in run.py..."
-      #     git fetch origin main
-
-      #     # Get the latest commit hash from the main branch
-      #     LATEST_COMMIT=$(git rev-parse FETCH_HEAD)
-
-      #     # Get the previous commit hash
-      #     PREVIOUS_COMMIT=$(git rev-parse FETCH_HEAD^)
-
-      #     # Check if run.py has changed between the two commits
-      #     if git diff --name-only $PREVIOUS_COMMIT $LATEST_COMMIT | grep -q 'run.py'; then
-      #       echo "run_changed=true" >> $GITHUB_ENV
-      #     else
-      #       echo "run_changed=false" >> $GITHUB_ENV
+      - name: Check if run.py changed
+        run: |
+          git diff --name-only HEAD~1 HEAD | grep -q 'run.py'
+          if [ $? -eq 0 ]; then
+            echo "run.py has changed."
+          else
+            echo "run.py has not changed."
+          fi
 
 
       # - name: Run run.py if run.py is changed        
