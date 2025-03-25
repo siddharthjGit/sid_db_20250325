@@ -28,7 +28,7 @@ jobs:
 
       - name: Check if run.py changed
         run: |
-          git diff --name-only HEAD~1 HEAD | grep -q 'run.py'
+          git diff --name-only HEAD~1 HEAD -- | grep -q 'run.py'
           if [ $? -eq 0 ]; then
             echo "run.py has changed."
           else
