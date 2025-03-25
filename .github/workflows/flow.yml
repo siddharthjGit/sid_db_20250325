@@ -14,9 +14,9 @@ jobs:
       - name: Check if run.py changed
         run: |
           if git diff --name-only HEAD^ HEAD | grep -q 'runs/run.py'; then
-            echo "changed=true" >> $GITHUB_ENV
+            echo "run_changed=true" >> $GITHUB_ENV
           else
-            echo "changed=false" >> $GITHUB_ENV
+            echo "run_changed=false" >> $GITHUB_ENV
           fi
 
       - name: Checkout repository
@@ -33,11 +33,11 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run run.py if run.py is changed        
-        if: env.changed == 'true'
+        if: env.run_changed == 'true'
         run: |
           python runs/run.py Siddharth
 
       - name: Run run2.py if run.py is not changed
-        if: env.changed == 'false'
+        if: env.run_changed == 'false'
         run: |
           python runs/run2.py Applepie
